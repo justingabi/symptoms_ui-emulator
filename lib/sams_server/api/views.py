@@ -170,6 +170,8 @@ class PredictDisease(APIView):
         nb_prediction = encoder.classes_[final_nb_model.predict(input_data)[0]]
         rf_prediction = encoder.classes_[final_rf_model.predict(input_data)[0]]
         final_prediction = mode([svm_prediction, nb_prediction, rf_prediction])
+        input_data = []
+        print(input_data)
         # Return the predictions
         return JsonResponse(
             {
