@@ -1,3 +1,4 @@
+import 'package:app/lottie_cover.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/medicine_provider.dart';
