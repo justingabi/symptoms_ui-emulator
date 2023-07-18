@@ -1,11 +1,13 @@
 // analyze_page.dart
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
+import 'package:app/add_medicine_dialog.dart';
 import 'package:app/symptom_fields_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'medicine_provider.dart';
 import 'medicine_model.dart';
+import 'medicine_card.dart';
 
 class AnalyzePage extends StatelessWidget {
   final String finalPrediction;
@@ -65,9 +67,7 @@ class AnalyzePage extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           Container(
             margin: EdgeInsets.all(20),
             padding: EdgeInsets.all(20),
@@ -97,89 +97,32 @@ class AnalyzePage extends StatelessWidget {
                       return ListView.builder(
                         shrinkWrap: true,
                         itemCount: provider.medicines.length,
-                        itemBuilder: (ctx, i) => Text(
-                            provider.medicines[i].name ?? 'Unknown Medicine'),
+                        itemBuilder: (ctx, index) => MedicineCard(
+                          medicine: provider.medicines[index],
+                          index: index,
+                        ),
                       );
                     }
                   },
                 ),
-                IconButton(
-                  icon: Icon(Icons.note_add),
+                ElevatedButton(
                   onPressed: () => showDialog(
-                      context: context, builder: (ctx) => AddMedicineDialog()),
-                )
+                    context: context,
+                    builder: (ctx) => AddMedicineDialog(),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.add),
+                      SizedBox(width: 8),
+                      Text('Add Medicine'),
+                    ],
+                  ),
+                ),
               ],
             ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class AddMedicineDialog extends StatefulWidget {
-  @override
-  _AddMedicineDialogState createState() => _AddMedicineDialogState();
-}
-
-class _AddMedicineDialogState extends State<AddMedicineDialog> {
-  final _formKey = GlobalKey<FormState>();
-  final _medicines = <Medicine>[];
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ..._medicines.map((e) {
-                return Dismissible(
-                  key: UniqueKey(),
-                  onDismissed: (_) {
-                    setState(() {
-                      _medicines.remove(e);
-                    });
-                  },
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      suffixIcon: Icon(Icons.delete),
-                    ),
-                    onSaved: (value) => e.name = value,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter a medicine';
-                      }
-                      return null;
-                    },
-                  ),
-                );
-              }).toList(),
-              ElevatedButton(
-                child: Text('Add another medicine'),
-                onPressed: () {
-                  setState(() {
-                    _medicines.add(Medicine());
-                  });
-                },
-              ),
-              ElevatedButton(
-                child: Text('Accept'),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    Provider.of<MedicineProvider>(context, listen: false)
-                        .addMedicine(_medicines.last);
-                    Navigator.pop(context);
-                  }
-                },
-              ),
-            ],
           ),
-        ),
+        ],
       ),
     );
   }
