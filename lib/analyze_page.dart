@@ -46,11 +46,11 @@ class AnalyzePage extends StatelessWidget {
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Final Prediction: $finalPrediction',
+                  'Predicted Disease: $finalPrediction',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Final Confidence: ${finalConfidence.toStringAsFixed(2)}',
+                  'Confidence score: ${finalConfidence.toStringAsFixed(2)}',
                   style: TextStyle(fontSize: 16),
                 ),
                 SizedBox(height: 10),

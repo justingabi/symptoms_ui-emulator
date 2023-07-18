@@ -28,7 +28,7 @@ class SymptomFieldsProvider extends ChangeNotifier {
   }
 
   void removeSymptom(String symptom) {
-    _symptoms.add(symptom);
+    _symptoms.remove(symptom);
     notifyListeners();
   }
 

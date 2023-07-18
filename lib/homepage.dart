@@ -118,10 +118,13 @@ class _HomepageState extends State<Homepage> {
                                 IconButton(
                                   onPressed: () {
                                     var index = _autocompleteFields.length - 1;
-                                    var symptom =
-                                        symptomFieldsProvider.symptoms[index];
-                                    symptomFieldsProvider
-                                        .removeSymptom(symptom);
+                                    if (symptomFieldsProvider
+                                        .symptoms.isNotEmpty) {
+                                      var symptom =
+                                          symptomFieldsProvider.symptoms[index];
+                                      symptomFieldsProvider
+                                          .removeSymptom(symptom);
+                                    }
                                     symptomFieldsProvider
                                         .removeSymptomField(index);
                                   },
@@ -137,12 +140,12 @@ class _HomepageState extends State<Homepage> {
                     SizedBox(height: 10),
                     Center(
                       child: ElevatedButton(
-                        onPressed: _analyzeSymptoms,
+                        onPressed: symptomFieldsProvider.symptoms.isNotEmpty
+                            ? _analyzeSymptoms
+                            : null,
                         child: Text('Analyze'),
                       ),
                     ),
-                    SizedBox(height: 10),
-                    Text(_predictionText), // Display the predictions
                   ],
                 ),
               ],
