@@ -92,7 +92,7 @@ class AnalyzePage extends StatelessWidget {
                 Consumer<MedicineProvider>(
                   builder: (context, provider, child) {
                     if (provider.medicines.isEmpty) {
-                      return Text('No Orders');
+                      return Text('\n\nNo Orders\n\n');
                     } else {
                       return ListView.builder(
                         shrinkWrap: true,
