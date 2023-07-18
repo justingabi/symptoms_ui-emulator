@@ -176,23 +176,27 @@ class PredictDisease(APIView):
         rf_prob = max(final_rf_model.predict_proba(input_data)[0])
 
         # Combine predictions and probabilities
-        predictions_with_confidence = {svm_prediction: svm_prob, nb_prediction: nb_prob, rf_prediction: rf_prob}
+        predictions_with_confidence = {
+            "SVM": {"prediction": svm_prediction, "confidence": svm_prob},
+            "Naive Bayes": {"prediction": nb_prediction, "confidence": nb_prob},
+            "Random Forest": {"prediction": rf_prediction, "confidence": rf_prob},
+        }
+        # Sort predictions by confidence
+        sorted_predictions = sorted(
+            predictions_with_confidence.items(),
+            key=lambda item: item[1]["confidence"],
+            reverse=True,
+        )
 
-        # Sort by confidence
-        sorted_predictions = sorted(predictions_with_confidence.items(), key=lambda item: item[1], reverse=True)
-        
-        # The final prediction is the one with the highest confidence score
-        final_prediction, final_confidence = sorted_predictions[0]
+        # The final prediction is based on the model with the highest confidence score
+        final_prediction = sorted_predictions[0][1]["prediction"]
+        final_confidence = sorted_predictions[0][1]["confidence"]
 
+        # Return the predictions
         # Return the predictions
         return JsonResponse(
             {
-                "svm_prediction": svm_prediction,
-                "svm_confidence": svm_prob,
-                "nb_prediction": nb_prediction,
-                "nb_confidence": nb_prob,
-                "rf_prediction": rf_prediction,
-                "rf_confidence": rf_prob,
+                "predictions_with_confidence": sorted_predictions,
                 "final_prediction": final_prediction,
                 "final_confidence": final_confidence,
             }
