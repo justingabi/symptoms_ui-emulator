@@ -32,6 +32,13 @@ class SymptomFieldsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void reset() {
+    _autocompleteFields.clear();
+    _textControllers.clear();
+    _symptoms.clear();
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     for (var controller in _textControllers) {

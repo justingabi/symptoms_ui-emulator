@@ -1,6 +1,7 @@
 // analyze_page.dart
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
+import 'package:app/symptom_fields_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'medicine_provider.dart';
@@ -51,6 +52,15 @@ class AnalyzePage extends StatelessWidget {
                 Text(
                   'Final Confidence: ${finalConfidence.toStringAsFixed(2)}',
                   style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {
+                    Provider.of<SymptomFieldsProvider>(context, listen: false)
+                        .reset();
+                    Navigator.pop(context);
+                  },
+                  child: Text('Analyze Again'),
                 ),
               ],
             ),
