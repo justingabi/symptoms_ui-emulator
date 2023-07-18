@@ -8,8 +8,12 @@ import 'medicine_model.dart';
 
 class AnalyzePage extends StatelessWidget {
   final String finalPrediction;
+  final double finalConfidence;
 
-  AnalyzePage({required this.finalPrediction});
+  AnalyzePage({
+    required this.finalPrediction,
+    required this.finalConfidence,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,10 @@ class AnalyzePage extends StatelessWidget {
                 Text(
                   'Final Prediction: $finalPrediction',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Final Confidence: ${finalConfidence.toStringAsFixed(2)}',
+                  style: TextStyle(fontSize: 16),
                 ),
               ],
             ),

@@ -27,22 +27,22 @@ class _HomepageState extends State<Homepage> {
         body: jsonEncode(requestBody),
         headers: {"Content-Type": "application/json"},
       );
+      print('Response Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         var prediction = jsonDecode(response.body) as Map<String, dynamic>;
 
-        // Get the final prediction
+        // Extract the final prediction and confidence
         var finalPrediction = prediction['final_prediction'].toString();
-
-        // Print the other predictions in the terminal
-        print('SVM prediction: ${prediction['svm_prediction']}');
-        print('NB prediction: ${prediction['nb_prediction']}');
-        print('RF prediction: ${prediction['rf_prediction']}');
-
+        var finalConfidence = prediction['final_confidence'] as double;
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AnalyzePage(finalPrediction: finalPrediction),
+            builder: (context) => AnalyzePage(
+              finalPrediction: finalPrediction,
+              finalConfidence: finalConfidence,
+            ),
           ),
         );
       } else {
