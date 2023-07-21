@@ -198,6 +198,11 @@ class _HomepageState extends State<Homepage> {
                               }
                             : null,
                         child: Text('Add symptom'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(height: 10),
@@ -207,6 +212,11 @@ class _HomepageState extends State<Homepage> {
                             ? _analyzeSymptoms
                             : null,
                         child: Text('Analyze'),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                        ),
                       ),
                     ),
                   ],

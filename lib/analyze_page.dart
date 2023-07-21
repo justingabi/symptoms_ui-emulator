@@ -62,6 +62,11 @@ class AnalyzePage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: Text('Analyze Again'),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
                 ),
               ],
             ),
