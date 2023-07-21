@@ -1,6 +1,3 @@
-// analyze_page.dart
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
 import 'package:app/add_medicine_dialog.dart';
 import 'package:app/symptom_fields_provider.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +17,8 @@ class AnalyzePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final medicineProvider = Provider.of<MedicineProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Analyze Page'),
@@ -86,38 +85,74 @@ class AnalyzePage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  'Physician Order Entry',
+                  'Physician Order',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                Consumer<MedicineProvider>(
-                  builder: (context, provider, child) {
-                    if (provider.medicines.isEmpty) {
-                      return Text('\n\nNo Orders\n\n');
-                    } else {
-                      return ListView.builder(
+                if (medicineProvider.medicines.isEmpty)
+                  Text('\n\nNo Orders\n\n')
+                else
+                  Column(
+                    children: [
+                      ListView.builder(
                         shrinkWrap: true,
-                        itemCount: provider.medicines.length,
+                        itemCount: medicineProvider.medicines.length,
                         itemBuilder: (ctx, index) => MedicineCard(
-                          medicine: provider.medicines[index],
+                          medicine: medicineProvider.medicines[index],
                           index: index,
                         ),
-                      );
-                    }
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () => showDialog(
-                    context: context,
-                    builder: (ctx) => AddMedicineDialog(),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.add),
-                      SizedBox(width: 8),
-                      Text('Add Medicine'),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Comment Section',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 2),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        maxLines: null,
+                        keyboardType: TextInputType.multiline,
+                      ),
                     ],
                   ),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Submit action here
+                      },
+                      child: Text('Submit'),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (ctx) => AddMedicineDialog(),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.add),
+                          SizedBox(width: 8),
+                          Text('Add Medicine'),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
