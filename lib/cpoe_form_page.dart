@@ -6,11 +6,11 @@ import 'medicine_provider.dart';
 import 'package:app/models/medicine_model.dart';
 import 'medicine_card.dart';
 
-class AnalyzePage extends StatelessWidget {
+class Cpoeform extends StatelessWidget {
   final String finalPrediction;
   final double finalConfidence;
 
-  AnalyzePage({
+  Cpoeform({
     required this.finalPrediction,
     required this.finalConfidence,
   });
@@ -128,7 +128,7 @@ class AnalyzePage extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Submit action here
+                        // Submit action here riqi
                       },
                       child: Text('Submit'),
                       style: ElevatedButton.styleFrom(

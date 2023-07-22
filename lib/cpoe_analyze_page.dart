@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'cpoe_form_page.dart';
 import 'symptom_fields_provider.dart';
-import 'package:app/models/symptoms_models.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -38,7 +37,7 @@ class _AnalyzeState extends State<Analyze> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => AnalyzePage(
+            builder: (context) => Cpoeform(
               finalPrediction: finalPrediction,
               finalConfidence: finalConfidence,
             ),
@@ -56,7 +55,8 @@ class _AnalyzeState extends State<Analyze> {
   Widget build(BuildContext context) {
     var symptomFieldsProvider = Provider.of<SymptomFieldsProvider>(context);
     List<Widget> _autocompleteFields = symptomFieldsProvider.autocompleteFields;
-    bool isAddButtonEnabled = _autocompleteFields.length < 5;
+    bool isAddButtonEnabled = _autocompleteFields.length < 7;
+    bool isAnalyzeButtonEnabled = symptomFieldsProvider.symptoms.length >= 3;
 
     return Scaffold(
       body: Center(
@@ -209,9 +209,8 @@ class _AnalyzeState extends State<Analyze> {
                     SizedBox(height: 10),
                     Center(
                       child: ElevatedButton(
-                        onPressed: symptomFieldsProvider.symptoms.isNotEmpty
-                            ? _analyzeSymptoms
-                            : null,
+                        onPressed:
+                            isAnalyzeButtonEnabled ? _analyzeSymptoms : null,
                         child: Text('Analyze'),
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
