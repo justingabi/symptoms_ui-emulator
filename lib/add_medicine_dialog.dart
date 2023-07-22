@@ -1,7 +1,7 @@
 // add_medicine_dialog.dart
+import 'package:app/models/medicine_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'medicine_model.dart';
 import 'medicine_provider.dart';
 
 class AddMedicineDialog extends StatefulWidget {

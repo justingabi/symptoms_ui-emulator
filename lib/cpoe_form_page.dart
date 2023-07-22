@@ -3,7 +3,7 @@ import 'package:app/symptom_fields_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'medicine_provider.dart';
-import 'medicine_model.dart';
+import 'package:app/models/medicine_model.dart';
 import 'medicine_card.dart';
 
 class AnalyzePage extends StatelessWidget {

@@ -1,17 +1,18 @@
+import 'package:app/models/symptoms_models.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'analyze_page.dart';
+import 'cpoe_form_page.dart';
 import 'symptom_fields_provider.dart';
-import 'models.dart';
+import 'package:app/models/symptoms_models.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class Homepage extends StatefulWidget {
+class Analyze extends StatefulWidget {
   @override
-  _HomepageState createState() => _HomepageState();
+  _AnalyzeState createState() => _AnalyzeState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _AnalyzeState extends State<Analyze> {
   void _analyzeSymptoms() async {
     var symptomFieldsProvider =
         Provider.of<SymptomFieldsProvider>(context, listen: false);
