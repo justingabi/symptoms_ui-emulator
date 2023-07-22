@@ -1,5 +1,5 @@
+import 'package:app/models/medicine_model.dart';
 import 'package:flutter/material.dart';
-import 'medicine_model.dart';
 
 class MedicineProvider with ChangeNotifier {
   final List<Medicine> _medicines = [];

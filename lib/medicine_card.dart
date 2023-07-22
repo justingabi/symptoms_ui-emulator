@@ -1,6 +1,6 @@
 import 'package:app/edit_medicine_dialog.dart';
-import 'package:app/medicine_model.dart';
 import 'package:app/medicine_provider.dart';
+import 'package:app/models/medicine_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
